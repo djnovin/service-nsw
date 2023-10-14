@@ -1,0 +1,84 @@
+on:
+    push:
+        branches:
+            - main # or master if you're using that as your default branch
+    pull_request:
+        branches:
+            - main # or master
+    workflow_dispatch:
+    schedule:
+        - cron: '0 0 * * *' # this runs the workflow every day at midnight
+
+jobs:
+    cache-and-install:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              with:
+                  version: 8
+                  run_install: false
+
+            - name: Get pnpm store directory
+              shell: bash
+              run: |
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+            - uses: actions/cache@v3
+              name: Setup pnpm cache
+              with:
+                  path: ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-store-
+
+            - name: Install dependencies
+              run: pnpm install
+
+    lint-and-static-analysis:
+        needs: cache-and-install # Changed from 'setup'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Lint the project
+              run: pnpm run lint
+
+    build:
+        needs: cache-and-install # Changed from 'setup'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Build the project
+              run: pnpm run build
+
+    unit-tests-with-coverage:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run unit tests with coverage
+              run: pnpm run coverage
+
+            - name: Ensure coverage is at least 80%
+              run: |
+                  COVERAGE=$(cat path-to-coverage-report | grep 'Line Coverage' | awk '{print $3}' | sed 's/%//')
+                  if [[ "$COVERAGE" -lt 80 ]]; then
+                      echo "Coverage is below 80%. Current coverage: $COVERAGE%"
+                      exit 1
+                  fi
+
+    integration-e2e-tests:
+        needs: build
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                browser: ['chromium', 'firefox']
+        steps:
+            - name: Run E2E tests on ${{ matrix.browser }} using Playwright
+              run: pnpm run e2e-test -- --browser=${{ matrix.browser }}

@@ -1,29 +1,30 @@
-import { NavData } from '../types';
-import { Component, ComponentProps, createSignal, For } from 'solid-js';
+import { NavData } from '../types'
+import { Component, ComponentProps, createSignal, For } from 'solid-js'
 
-type NavProps = Omit<NavData, '_type'>;
+type NavProps = Omit<NavData, '_type'>
 
 export const NavComponent: Component<NavProps & ComponentProps<'nav'>> = (
-  props
+    props
 ) => {
-  const { navItems, ...rest } = props;
+    const { navItems, ...rest } = props
 
-  const [menu, setMenu] = createSignal<boolean>(false);
+    const [menu, setMenu] = createSignal<boolean>(false)
 
-  return (
-    <nav
-      class='nav'
-      {...rest}
-    >
-      <button onClick={() => setMenu(true)}>Open Menu</button>
+    return (
+        <nav class="nav" {...rest}>
+            <button class="hamburger-wrapper" onClick={() => setMenu(true)}>
+                Open Menu
+            </button>
 
-      {menu() === true && (
-        <div class='fullscreen-menu'>
-          <button onClick={() => setMenu(false)}>Close Menu</button>
+            {menu() === true && (
+                <div class="fullscreen-menu">
+                    <button onClick={() => setMenu(false)}>Close Menu</button>
 
-          <For each={navItems}>{(item) => <a href='#'>{item}</a>}</For>
-        </div>
-      )}
-    </nav>
-  );
-};
+                    <For each={navItems}>
+                        {(item) => <a href="#">{item}</a>}
+                    </For>
+                </div>
+            )}
+        </nav>
+    )
+}
