@@ -14,6 +14,7 @@ on:
 env:
     LOCATION: eastus2
     RESOURCE_GROUP: nov
+    STORE_PATH: ~/.bun/install/cache
 
 jobs:
     cache-and-install:
