@@ -1,4 +1,4 @@
-import { JSX } from 'solid-js';
+import { JSX, JSXElement } from 'solid-js';
 
 export type ComponentType = 'section' | 'footer' | 'nav' | 'banner' | 'hero';
 
@@ -54,7 +54,7 @@ export type Data = {
 };
 
 export type CardData = {
-    arrow?: JSX.Element;
+    arrow?: JSXElement;
     icon?: JSX.Element;
-    label: CardLabel;
+    label: Partial<CardLabel>;
 };

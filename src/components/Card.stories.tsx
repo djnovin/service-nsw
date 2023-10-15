@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs';
 
 import { Card } from './Card';
 import { DefaultArrow } from './Icons';
+import { CardLabel } from '../types';
 
 const meta = {
     title: 'Card',
@@ -15,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        label: 'Transport and services',
-        arrow: DefaultArrow
+        label: CardLabel.DrivingTransport,
+        arrow: <DefaultArrow />
     }
 };

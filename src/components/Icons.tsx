@@ -1,6 +1,8 @@
-import { Component, ComponentProps } from 'solid-js';
+import { Component, ComponentProps, JSXElement } from 'solid-js';
 
-export const DefaultArrow: Component<ComponentProps<'svg'>> = (props) => {
+export const DefaultArrow: Component<ComponentProps<'svg'>> = (
+    props
+): JSXElement => {
     return (
         <svg
             {...props}
@@ -18,7 +20,9 @@ export const DefaultArrow: Component<ComponentProps<'svg'>> = (props) => {
     );
 };
 
-export const ChevronRight: Component<ComponentProps<'svg'>> = (props) => {
+export const ChevronRight: Component<ComponentProps<'svg'>> = (
+    props
+): JSXElement => {
     return (
         <svg
             {...props}

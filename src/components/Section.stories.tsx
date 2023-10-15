@@ -14,21 +14,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Banner: Story = {
+export const Section: Story = {
     args: {
+        _type: 'section',
         title: 'Browse services',
         cards: [
             {
                 label: CardLabel.BirthsRelationshipsDeaths,
-                arrow: DefaultArrow
+                arrow: <DefaultArrow />
             },
             {
                 label: CardLabel.BusinessIndustriesEmployment,
-                arrow: DefaultArrow
+                arrow: <DefaultArrow />
             },
             {
                 label: CardLabel.DrivingTransport,
-                arrow: DefaultArrow
+                arrow: <DefaultArrow />
             }
         ]
     }

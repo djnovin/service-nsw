@@ -15,15 +15,15 @@ export const data: ComponentData[] = [
         cards: [
             {
                 label: CardLabel.BirthsRelationshipsDeaths,
-                arrow: DefaultArrow
+                arrow: <DefaultArrow />
             },
             {
                 label: CardLabel.BusinessIndustriesEmployment,
-                arrow: DefaultArrow
+                arrow: <DefaultArrow />
             },
             {
                 label: CardLabel.DrivingTransport,
-                arrow: DefaultArrow
+                arrow: <DefaultArrow />
             }
         ]
     },
