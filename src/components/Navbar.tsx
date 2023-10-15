@@ -1,14 +1,14 @@
-import { NavData } from '../types'
-import { Component, ComponentProps, createSignal, For } from 'solid-js'
+import { NavData } from '../types';
+import { Component, ComponentProps, createSignal, For } from 'solid-js';
 
-type NavProps = Omit<NavData, '_type'>
+type NavProps = Omit<NavData, '_type'>;
 
 export const NavComponent: Component<NavProps & ComponentProps<'nav'>> = (
     props
 ) => {
-    const { navItems, ...rest } = props
+    const { navItems, ...rest } = props;
 
-    const [menu, setMenu] = createSignal<boolean>(false)
+    const [menu, setMenu] = createSignal<boolean>(false);
 
     return (
         <nav class="nav" {...rest}>
@@ -26,5 +26,5 @@ export const NavComponent: Component<NavProps & ComponentProps<'nav'>> = (
                 </div>
             )}
         </nav>
-    )
-}
+    );
+};

@@ -1,42 +1,42 @@
-import { JSX } from 'solid-js'
+import { JSX } from 'solid-js';
 
-export type ComponentType = 'section' | 'footer' | 'nav' | 'banner' | 'hero'
+export type ComponentType = 'section' | 'footer' | 'nav' | 'banner' | 'hero';
 
 export type HeroData = {
-    _type: 'hero'
-}
+    _type: 'hero';
+};
 
 export type SectionData = {
-    _type: 'section'
-    title: string
-    cards: CardData[]
-}
+    _type: 'section';
+    title: string;
+    cards: CardData[];
+};
 
 export type FooterData = {
-    _type: 'footer'
+    _type: 'footer';
     footerLinks: {
-        label: string
-        href: string
-    }[]
-}
+        label: string;
+        href: string;
+    }[];
+};
 
 export type NavData = {
-    _type: 'nav'
-    navItems: string[]
-}
+    _type: 'nav';
+    navItems: string[];
+};
 
 export type BannerData = {
-    _type: 'banner'
-    bannerTitle: string
-    bannerText: string
-}
+    _type: 'banner';
+    bannerTitle: string;
+    bannerText: string;
+};
 
 export type ComponentData =
     | SectionData
     | FooterData
     | NavData
     | BannerData
-    | HeroData
+    | HeroData;
 
 export enum CardLabel {
     BirthsRelationshipsDeaths = 'Births, relationships and deaths',
@@ -45,16 +45,16 @@ export enum CardLabel {
     DrivingTransport = 'Driving and transport',
     HealthCare = 'Health and care',
     HousingProperty = 'Housing and property',
-    LegalPoliceServices = 'Legal and police services',
+    LegalPoliceServices = 'Legal and police services'
 }
 
 export type Data = {
-    cards: CardData[]
-    title: string
-}
+    cards: CardData[];
+    title: string;
+};
 
 export type CardData = {
-    arrow?: JSX.Element
-    icon?: JSX.Element
-    label: CardLabel
-}
+    arrow?: JSX.Element;
+    icon?: JSX.Element;
+    label: CardLabel;
+};

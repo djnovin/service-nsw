@@ -1,13 +1,16 @@
-import { Component, ComponentProps, JSX } from 'solid-js'
-import { BannerData } from '../types'
+import { Component, ComponentProps, JSX, splitProps } from 'solid-js';
+import { BannerData } from '../types';
 
-type BannerProps = Omit<BannerData, '_type'>
+type BannerProps = Omit<BannerData, '_type'>;
 
 export const BannerComponent: Component<
     BannerProps & ComponentProps<'section'>
-> = ({ bannerTitle, bannerText, ...rest }): JSX.Element => (
-    <section {...rest} class="banner">
-        <h3>{bannerTitle}</h3>
-        <p>{bannerText}</p>
-    </section>
-)
+> = (props): JSX.Element => {
+    const [mainProps, rest] = splitProps(props, ['bannerTitle', 'bannerText']);
+    return (
+        <section {...rest} class="banner">
+            <h3>{mainProps.bannerTitle}</h3>
+            <p>{mainProps.bannerText}</p>
+        </section>
+    );
+};

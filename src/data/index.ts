@@ -1,13 +1,13 @@
-import { DefaultArrow } from '../components/Icons'
-import { CardLabel, ComponentData } from '../types'
+import { DefaultArrow } from '../components/Icons';
+import { CardLabel, ComponentData } from '../types';
 
 export const data: ComponentData[] = [
     {
         _type: 'nav',
-        navItems: ['Home', 'About', 'Contact'],
+        navItems: ['Home', 'About', 'Contact']
     },
     {
-        _type: 'hero',
+        _type: 'hero'
     },
     {
         _type: 'section',
@@ -15,84 +15,84 @@ export const data: ComponentData[] = [
         cards: [
             {
                 label: CardLabel.BirthsRelationshipsDeaths,
-                arrow: DefaultArrow,
+                arrow: DefaultArrow
             },
             {
                 label: CardLabel.BusinessIndustriesEmployment,
-                arrow: DefaultArrow,
+                arrow: DefaultArrow
             },
             {
                 label: CardLabel.DrivingTransport,
-                arrow: DefaultArrow,
-            },
-        ],
+                arrow: DefaultArrow
+            }
+        ]
     },
     {
         _type: 'banner',
         bannerTitle: 'ACKNOWLEDGEMENT OF COUNTRY',
         bannerText:
-            'We acknowledge the Traditional Custodians of NSW, and their continued connection to land, water and culture. We pay our respects to Elders past and present.',
+            'We acknowledge the Traditional Custodians of NSW, and their continued connection to land, water and culture. We pay our respects to Elders past and present.'
     },
     {
         _type: 'footer',
         footerLinks: [
             {
                 label: 'About',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Contact',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Privacy',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Jobs at Service NSW',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'News',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Download the Service NSW app',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Phone 13 77 88',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Find a Service NSW location',
-                href: '#',
-            },
-        ],
+                href: '#'
+            }
+        ]
     },
     {
         _type: 'footer',
         footerLinks: [
             {
                 label: 'Acessibility',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Privacy Policy',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Copyright and disclaimer',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'Accessing Information',
-                href: '#',
+                href: '#'
             },
             {
                 label: 'NSW Government',
-                href: '#',
-            },
-        ],
-    },
-]
+                href: '#'
+            }
+        ]
+    }
+];

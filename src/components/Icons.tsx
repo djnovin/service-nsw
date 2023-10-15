@@ -1,4 +1,4 @@
-import { Component, ComponentProps } from 'solid-js'
+import { Component, ComponentProps } from 'solid-js';
 
 export const DefaultArrow: Component<ComponentProps<'svg'>> = (props) => {
     return (
@@ -15,8 +15,8 @@ export const DefaultArrow: Component<ComponentProps<'svg'>> = (props) => {
                 fill-rule="evenodd"
             />
         </svg>
-    )
-}
+    );
+};
 
 export const ChevronRight: Component<ComponentProps<'svg'>> = (props) => {
     return (
@@ -31,7 +31,7 @@ export const ChevronRight: Component<ComponentProps<'svg'>> = (props) => {
                 fill="currentColor"
                 fill-rule="evenodd"
                 clip-rule="evenodd"
-            ></path>
+            />
         </svg>
-    )
-}
+    );
+};

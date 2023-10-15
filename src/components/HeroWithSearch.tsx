@@ -1,43 +1,43 @@
-import { For, createSignal } from 'solid-js'
-import './HeroWithSearch.modules.scss'
-import cn from 'classnames'
-import { ChevronRight } from './Icons'
+import { For, createSignal } from 'solid-js';
+import './HeroWithSearch.modules.scss';
+import cn from 'classnames';
+import { ChevronRight } from './Icons';
 
 export const HeroWithSearch = () => {
-    const [open, setOpen] = createSignal<boolean>(false)
+    const [open, setOpen] = createSignal<boolean>(false);
 
     const links = [
         {
             href: '#',
-            label: 'Renew rego',
+            label: 'Renew rego'
         },
         {
             href: '#',
-            label: 'Renew rego',
+            label: 'Renew rego'
         },
         {
             href: '#',
-            label: 'Renew rego',
+            label: 'Renew rego'
         },
         {
             href: '#',
-            label: 'Renew rego',
+            label: 'Renew rego'
         },
         {
             href: '#',
-            label: 'Renew rego',
+            label: 'Renew rego'
         },
         {
             href: '#',
-            label: 'Renew rego',
-        },
-    ]
+            label: 'Renew rego'
+        }
+    ];
 
     return (
         <div
             class={cn('hero-wrapper', {
                 [cn('bg-when-active')]: open() === true,
-                [cn('bg-when-inactive')]: open() === false,
+                [cn('bg-when-inactive')]: open() === false
             })}
         >
             <div
@@ -47,7 +47,7 @@ export const HeroWithSearch = () => {
                 <h1
                     class={cn({
                         [cn('text-when-active')]: open() === true,
-                        [cn('text-when-inactive')]: open() === false,
+                        [cn('text-when-inactive')]: open() === false
                     })}
                 >
                     Popular Pages
@@ -55,7 +55,7 @@ export const HeroWithSearch = () => {
                 <ChevronRight
                     class={cn('chevron', {
                         [cn('chevron-when-active')]: open() === true,
-                        [cn('chevron-when-inactive')]: open() === false,
+                        [cn('chevron-when-inactive')]: open() === false
                     })}
                 />
             </div>
@@ -71,5 +71,5 @@ export const HeroWithSearch = () => {
                 </div>
             )}
         </div>
-    )
-}
+    );
+};

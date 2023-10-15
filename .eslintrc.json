@@ -1,32 +1,18 @@
-// {
-//     "env": { "browser": true },
-//     "extends": [
-//         "eslint:recommended",
-//         "airbnb-typescript",
-//         "plugin:@typescript-eslint/recommended",
-//         "plugin:@typescript-eslint/recommended-requiring-type-checking",
-//         "plugin:@typescript-eslint/strict",
-//         "plugin:solid/typescript",
-//         "plugin:prettier/recommended"
-//     ],
-//     "parser": "@typescript-eslint/parser",
-//     "parserOptions": { "project": ["./tsconfig.json"] },
-//     "plugins": ["@typescript-eslint", "solid", "import"],
-//     "rules": {
-//         "import/extensions": ["error", "ignorePackages"],
-//         "prettier/prettier": ["error", { "endOfLine": "auto" }],
-//         "import/no-unresolved": "off"
-//     },
-//     "settings": {
-//         "import/parsers": {
-//             "@typescript-eslint/parser": [".ts", ".tsx"]
-//         },
-//         "import/resolver": {
-//             "typescript": {
-//                 "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
-
-//                 "project": "."
-//             }
-//         }
-//     }
-// }
+{
+    "env": { "browser": true, "node": true },
+    "root": true,
+    "extends": ["plugin:solid/typescript", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": { "project": ["./tsconfig.json"] },
+    "plugins": ["solid"],
+    "settings": {
+        "solid": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "no-undef": "error",
+        "import/prefer-default-export": "off"
+    }
+}
