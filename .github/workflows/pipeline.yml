@@ -31,26 +31,25 @@ jobs:
               with:
                   node-version: 18
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v2
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v1
               with:
-                  version: 8
-                  run_install: false
+                bun-version: latest # You can also use a specific version
 
-            - name: Get pnpm store directory
-              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+            - name: Get bun store directory
+              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
 
-            - name: Cache pnpm modules
+            - name: Cache bun modules
               uses: actions/cache@v3
               with:
                   path: |
-                      ~/.pnpm-store
+                      ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: ${{ runner.os }}-pnpm-
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
-              run: pnpm install
+              run: bun install --frozen-lockfile
 
     lint-and-static-analysis:
         needs: cache-and-install
@@ -60,30 +59,28 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
-            - name: Install pnpm (redundant, but ensures pnpm is available)
-              uses: pnpm/action-setup@v2
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v1
               with:
-                  version: 8
-                  run_install: false
+                bun-version: latest # You can also use a specific version
 
-            - name: Get pnpm store directory
-              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+            - name: Get bun store directory
+              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
 
-            - name: Cache pnpm modules
+            - name: Cache bun modules
               uses: actions/cache@v3
               with:
                   path: |
-                      ~/.pnpm-store
+                      ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: ${{ runner.os }}-pnpm-
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  restore-keys: ${{ runner.os }}-bun-
 
-            # This step ensures that the dependencies are present in the node_modules directory
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: bun install --frozen-lockfile
 
             - name: Lint the project
-              run: pnpm run lint
+              run: bun run lint
 
     test:
         needs: lint-and-static-analysis
@@ -93,29 +90,28 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
-            - name: Install pnpm (redundant, but ensures pnpm is available)
-              uses: pnpm/action-setup@v2
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v1
               with:
-                  version: 8
-                  run_install: false
+                bun-version: latest # You can also use a specific version
 
-            - name: Get pnpm store directory
-              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+            - name: Get bun store directory
+              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
 
-            - name: Cache pnpm modules
+            - name: Cache bun modules
               uses: actions/cache@v3
               with:
                   path: |
-                      ~/.pnpm-store
+                      ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: ${{ runner.os }}-pnpm-
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: bun install --frozen-lockfile
 
             - name: Run tests
-              run: pnpm test
+              run: bun run test
 
     build-app:
         needs: test
@@ -123,31 +119,30 @@ jobs:
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
-            - name: Install pnpm (redundant, but ensures pnpm is available)
-              uses: pnpm/action-setup@v2
+            - name: Setup Bun
+              uses: oven-sh/setup-bun@v1
               with:
-                  version: 8
-                  run_install: false
+                bun-version: latest # You can also use a specific version
 
-            - name: Get pnpm store directory
-              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+            - name: Get bun store directory
+              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
 
-            - name: Cache pnpm modules
+            - name: Cache bun modules
               uses: actions/cache@v3
               with:
                   path: |
-                      ~/.pnpm-store
+                      ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: ${{ runner.os }}-pnpm-
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: bun install --frozen-lockfile
 
             - name: Build the app
-              run: pnpm run build
+              run: bun run build
 
     provision:
         name: Provision resources
