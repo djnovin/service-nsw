@@ -5,14 +5,12 @@ import { Card } from './Card';
 export const SectionComponent: Component<
     SectionData & ComponentProps<'section'>
 > = (props): JSX.Element => {
-    const { title, cards, ...rest } = props;
-
     return (
-        <section class="services" {...rest}>
-            {title && <h1 class="title">{title}</h1>}
-            {cards && (
+        <section class="services" {...props}>
+            {props.title && <h1 class="title">{props.title}</h1>}
+            {props.cards && (
                 <div>
-                    <For each={cards}>
+                    <For each={props.cards}>
                         {(item) => (
                             <div class="wrapper">
                                 <Card {...item} />
