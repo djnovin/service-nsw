@@ -121,9 +121,6 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
-            - name: Checkout
-              uses: actions/checkout@v3
-
             - name: Install pnpm (redundant, but ensures pnpm is available)
               uses: pnpm/action-setup@v2
               with:
