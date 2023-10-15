@@ -144,3 +144,23 @@ jobs:
 
             - name: Build the app
               run: pnpm run build
+
+    provision_azure:
+        needs: lint_and_test
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Install Azure CLI
+              run: |
+                  curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+            - name: Login to Azure
+              uses: azure/login@v1
+              with:
+                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+            - name: Compile Bicep to ARM template
+              run: az bicep build --file Dockerfile.bicep
+
+            - name: Deploy Infrastructure using ARM template
+              run: az deployment group create --resource-group myResourceGroup --template-file Dockerfile.json
