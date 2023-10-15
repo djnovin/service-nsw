@@ -146,7 +146,7 @@ jobs:
               run: pnpm run build
 
     provision_azure:
-        needs: lint_and_test
+        needs: build-app
         runs-on: ubuntu-latest
 
         steps:
