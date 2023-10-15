@@ -62,5 +62,21 @@ jobs:
                   version: 8
                   run_install: false
 
+            - name: Get pnpm store directory
+              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+            - name: Cache pnpm modules
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.pnpm-store
+                      ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: ${{ runner.os }}-pnpm-
+
+            # This step ensures that the dependencies are present in the node_modules directory
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
             - name: Lint the project
               run: pnpm run lint
