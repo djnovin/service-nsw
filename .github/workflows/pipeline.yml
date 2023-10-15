@@ -37,7 +37,7 @@ jobs:
                 bun-version: latest # You can also use a specific version
 
             - name: Get bun store directory
-              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
+              run: echo "STORE_PATH=$(~/.bun/install/cache)" >> $GITHUB_ENV
 
             - name: Cache bun modules
               uses: actions/cache@v3
@@ -45,7 +45,7 @@ jobs:
                   path: |
                       ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/bun-lockb') }} # Note: adjust the lock file if it's different for bun
                   restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
@@ -65,7 +65,7 @@ jobs:
                 bun-version: latest # You can also use a specific version
 
             - name: Get bun store directory
-              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
+              run: echo "STORE_PATH=$(~/.bun/install/cache)" >> $GITHUB_ENV
 
             - name: Cache bun modules
               uses: actions/cache@v3
@@ -73,7 +73,7 @@ jobs:
                   path: |
                       ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/bun-lockb') }} # Note: adjust the lock file if it's different for bun
                   restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
@@ -96,7 +96,7 @@ jobs:
                 bun-version: latest # You can also use a specific version
 
             - name: Get bun store directory
-              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
+              run: echo "STORE_PATH=$(~/.bun/install/cache)" >> $GITHUB_ENV
 
             - name: Cache bun modules
               uses: actions/cache@v3
@@ -104,7 +104,7 @@ jobs:
                   path: |
                       ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/bun-lockb') }} # Note: adjust the lock file if it's different for bun
                   restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
@@ -127,7 +127,7 @@ jobs:
                 bun-version: latest # You can also use a specific version
 
             - name: Get bun store directory
-              run: echo "STORE_PATH=$(bun store path --silent)" >> $GITHUB_ENV
+              run: echo "STORE_PATH=$(~/.bun/install/cache)" >> $GITHUB_ENV
 
             - name: Cache bun modules
               uses: actions/cache@v3
@@ -135,7 +135,7 @@ jobs:
                   path: |
                       ~/.bun/install/cache
                       ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-bun-${{ hashFiles('**/pnpm-lock.yaml') }} # Note: adjust the lock file if it's different for bun
+                  key: ${{ runner.os }}-bun-${{ hashFiles('**/bun-lockb') }} # Note: adjust the lock file if it's different for bun
                   restore-keys: ${{ runner.os }}-bun-
 
             - name: Install dependencies
