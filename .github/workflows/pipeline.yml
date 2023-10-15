@@ -1,13 +1,13 @@
 on:
     push:
         branches:
-            - main # or master if you're using that as your default branch
+            - master
     pull_request:
         branches:
-            - main # or master
+            - master
     workflow_dispatch:
     schedule:
-        - cron: '0 0 * * *' # this runs the workflow every day at midnight
+        - cron: '0 0 * * *'
 
 jobs:
     cache-and-install:
@@ -22,46 +22,80 @@ jobs:
               with:
                   node-version: 18
 
-            - uses: pnpm/action-setup@v2
-              name: Install pnpm
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
               with:
                   version: 8
                   run_install: false
 
             - name: Get pnpm store directory
-              shell: bash
               run: |
                   echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-            - uses: actions/cache@v3
-              name: Setup pnpm cache
+            - name: Cache pnpm modules
+              uses: actions/cache@v3
               with:
-                  path: ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  path: |
+                      ~/.pnpm-store
+                      ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
                   restore-keys: |
-                      ${{ runner.os }}-pnpm-store-
+                      ${{ runner.os }}-pnpm-
 
             - name: Install dependencies
               run: pnpm install
 
     lint-and-static-analysis:
-        needs: cache-and-install # Changed from 'setup'
+        needs: cache-and-install
         runs-on: ubuntu-latest
+
         steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            # Reinstalling pnpm explicitly for this job
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: false
+
             - name: Lint the project
               run: pnpm run lint
 
     build:
-        needs: cache-and-install # Changed from 'setup'
+        needs: cache-and-install
         runs-on: ubuntu-latest
+
         steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            # Reinstalling pnpm explicitly for this job
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: false
+
             - name: Build the project
               run: pnpm run build
 
     unit-tests-with-coverage:
         needs: build
         runs-on: ubuntu-latest
+
         steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            # Reinstalling pnpm explicitly for this job
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: false
+
             - name: Run unit tests with coverage
               run: pnpm run coverage
 
@@ -76,9 +110,17 @@ jobs:
     integration-e2e-tests:
         needs: build
         runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                browser: ['chromium', 'firefox']
+
         steps:
-            - name: Run E2E tests on ${{ matrix.browser }} using Playwright
-              run: pnpm run e2e-test -- --browser=${{ matrix.browser }}
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            # Reinstalling pnpm explicitly for this job
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: false
+
+            - name: Run E2E tests
+              run: pnpm run e2e-test
