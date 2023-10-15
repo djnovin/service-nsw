@@ -11,7 +11,7 @@
         "build-storybook": "storybook build",
         "test": "vitest",
         "coverage": "vitest run --coverage",
-        "lint": "eslint --ext .js,.jsx,.ts,.tsx src --fix",
+        "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
         "prettify": "prettier --write",
         "prepare": "husky install"
     },

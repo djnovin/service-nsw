@@ -1,3 +1,5 @@
+name: CI
+
 on:
     push:
         branches:
@@ -32,8 +34,7 @@ jobs:
                   run_install: false
 
             - name: Get pnpm store directory
-              run: |
-                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
             - name: Cache pnpm modules
               uses: actions/cache@v3
@@ -42,8 +43,7 @@ jobs:
                       ~/.pnpm-store
                       ${{ env.STORE_PATH }}
                   key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-
+                  restore-keys: ${{ runner.os }}-pnpm-
 
             - name: Install dependencies
               run: pnpm install
@@ -56,8 +56,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
-            # Reinstalling pnpm explicitly for this job
-            - name: Install pnpm
+            - name: Install pnpm (redundant, but ensures pnpm is available)
               uses: pnpm/action-setup@v2
               with:
                   version: 8
