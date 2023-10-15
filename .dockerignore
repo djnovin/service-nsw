@@ -1,0 +1,7 @@
+.github
+.husky
+.storybook
+.vscode
+coverage
+dist
+node_modules
