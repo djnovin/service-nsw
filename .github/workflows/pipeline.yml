@@ -1,4 +1,3 @@
-name: ci
 on:
     push:
         branches:
@@ -11,31 +10,58 @@ on:
         - cron: '0 0 * * *'
 
 jobs:
-    build:
+    cache-and-install:
         runs-on: ubuntu-latest
         strategy:
             matrix:
                 node-version: [18]
+
         steps:
             - name: Checkout
               uses: actions/checkout@v3
 
             - name: Install Node.js
-              uses: action/setup-node@v3
+              uses: actions/setup-node@v3
               with:
                   node-version: 18
-            - name: Install pnpm
 
+            - name: Install pnpm
               uses: pnpm/action-setup@v2
               with:
                   version: 8
                   run_install: false
 
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
+            - name: Get pnpm store directory
+              run: |
+                  echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+            - name: Cache pnpm modules
+              uses: actions/cache@v3
               with:
-                  node-version: ${{ matrix.node-version }}
-                  cache: 'pnpm'
+                  path: |
+                      ~/.pnpm-store
+                      ${{ env.STORE_PATH }}
+                  key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+                  restore-keys: |
+                      ${{ runner.os }}-pnpm-
 
             - name: Install dependencies
               run: pnpm install
+
+    lint-and-static-analysis:
+        needs: cache-and-install
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            # Reinstalling pnpm explicitly for this job
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+              with:
+                  version: 8
+                  run_install: false
+
+            - name: Lint the project
+              run: pnpm run lint
